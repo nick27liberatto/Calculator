@@ -37,14 +37,47 @@ footer{
  .container .calculator .display{
     color: black;
     background-color: white;
-    margin: 40px 80px;
+    padding: 5% 5%;
+    margin: 0 auto;
+    width: 50%;
+    border-radius: 8px;
 }
 
- .container .calculator .number{
-    padding: 25px auto;
+.container .calculator .display p{
+    font-size: 20px;
+    font-weight: 500;
 }
- .container .calculator .number ul{
-    width: 25%;
+
+ .container .calculator .numbers{
+    padding: 25px 25px;
+    margin-bottom: 20px;
+}
+ .container .calculator .numbers ul{
+    justify-content: center;
+    align-items: center;
     display: flex;
 } 
 
+.container .calculator .numbers ul > li{
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.container .calculator .numbers ul > li > button{
+    padding: 20px;
+    margin: 5px;
+    align-items: center;
+    justify-content: center;
+    font-family: "Moderustic", sans-serif;
+    border: none;
+    border-radius: 8px;
+    background-color: black;
+    color: white;
+    font-size: 15px;
+} 
+
+.container .calculator .numbers ul > li > button:hover{
+    background-color: white;
+    color: black;
+}
