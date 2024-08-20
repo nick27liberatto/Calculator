@@ -1,9 +1,6 @@
 # SIMPLE CALCULATOR PROJECT
 
-- Simple project with focus on practing the basis of backend and a bit of frontend.
-
-- This code it's being built mostly without help, so the structure and functions are probably really deprecated.
-
-- It will help me highlight my strong and weak points, so I can improve on them.
-
-- Not main project I am working on
+- This is a simple project focused on practicing the basics of backend development and a bit of frontend. 
+- The code is being built mostly without external help, so the structure and functions are likely deprecated.
+- This project will help me identify my strengths and weaknesses, so I can focus on improving them. 
+- It is not my main project that I'm currently working on.
