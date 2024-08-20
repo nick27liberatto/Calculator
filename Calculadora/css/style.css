@@ -81,3 +81,66 @@ footer{
     background-color: white;
     color: black;
 }
+
+.container .recursos{
+    margin-top: 40px;
+    justify-content: space-between;
+    display: flex;
+}
+
+.container .recursos .history{
+    width: 50%;
+    background-color: black;
+    color: white;
+    border: black;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.container .recursos .history h3{
+    margin-top: 20px;
+    font-weight: 500;
+    margin-bottom: -20px;
+}
+
+#historyUl{
+    margin: 50px 0;
+}
+
+#historyUl li{
+    margin: 20px auto;
+}
+
+.container .recursos .limparDiv{
+    width: 50%;
+}
+
+.container .recursos .limparDiv .limpar {
+    padding: 20px;
+    background-color: black;
+    color: white;
+    transition: 0.3s;
+    border-radius: 10px;
+    margin: 5% 0;
+}
+
+#limparHist,
+#limparCalc{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#limparCalc{
+    padding: 25px 45px;
+}
+
+#limparHist{
+    padding: 25px 60px;
+}
+
+.container .recursos .limparDiv .limpar:hover{
+    background-color: white;
+    color: black;
+    box-shadow: 0px 0px 0px 0.01px black;
+}
+

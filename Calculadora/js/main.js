@@ -10,20 +10,25 @@ const minus = document.getElementById("minus")
 const multi = document.getElementById("multi")
 const div = document.getElementById("div")
 
-
-//set mutable variables
+//set global mutable variables
 const elements = {
     part1 : 0,
     part2 : 0,
     result : 0
 }
 
+//check operation with boolean
 const operators = {
     adding : false,
     reducing : false, 
     multiplying : false, 
-    dividing : false
+    dividing : false,
+    calculated : false
 }
+
+//system to clean result from display
+const allButtons = document.querySelectorAll('button')
+const allOperations = Object.values(operators)
 
 //set variables
 const numbers = []
@@ -43,7 +48,7 @@ sum.addEventListener("click", () => {
     //store first values
     if (elements.part1 == 0) {
         elements.part1 = numbers.join('')
-        console.log(numbers)
+        console.log(elements.part1)
         numbers.length = 0
         console.log(numbers)
         operators.adding = true;
@@ -54,25 +59,77 @@ function sumValues() {
     elements.result = Number(elements.part1) + Number(elements.part2)
 }
 
-//show the results and calculate
-equal.addEventListener("click", () => {
+function storeHistory() {
+    localStorage.setItem('parte 1', elements.part1)
+    localStorage.setItem('parte 2', elements.part2)
+    localStorage.setItem('resultado', elements.result)
+    displayHistory()
+}
 
-    if (elements.part2 == 0) {
-        elements.part2 = numbers.join('')
-        console.log(numbers)
-        numbers.length = 0
-        console.log(numbers)
-    }
-
-    if (operators.adding == true) {
-        sumValues()
-    }
-
+function displayHistory() {
+    const parteUm = localStorage.getItem('parte 1')
+    const parteDois = localStorage.getItem('parte 2')
+    const resultado = localStorage.getItem('resultado')
     
-    show.innerHTML = elements.result
-    console.log(`${elements.part1} + ${elements.part2} = ${elements.result}`)
-})
+    let historyUl = document.getElementById("historyUl")
+    let history = document.createElement('li')
 
+    historyUl.appendChild(history)  
+    history.innerHTML = `${parteUm} + ${parteDois} = ${resultado}`
+}
+
+
+//show the results and calculate
+equal.addEventListener("click", async () => {
+    await new Promise((resolve) => {
+            //store part2 of the equation
+            if (elements.part2 == 0) {
+                elements.part2 = numbers.join('')
+                console.log(elements.part2)
+                numbers.length = 0
+                console.log(numbers)
+            }
+
+            //if adding, call sum function, display result and set adding to false
+            if (operators.adding == true) {
+                sumValues()
+                console.log(`${elements.part1} + ${elements.part2} = ${elements.result}`)
+                show.innerHTML = elements.result
+                operators.adding = false
+            }
+
+            storeHistory()
+
+            //reset variables
+            elements.result = 0
+            elements.part1 = 0
+            elements.part2 = 0
+            console.log(elements.result)
+            console.log(elements.part1)
+            console.log(elements.part2)
+            resolve()
+        }).then(() => {
+            setTimeout(() => {
+              elements.calculated = true
+            }, 0);
+          })
+    })
+
+document.addEventListener("click", (evt) => {
+    if(evt.target.matches('button') && elements.calculated == true) {
+        elements.calculated = false
+    }
+}) 
+
+
+function limparCalc() {
+    show.innerHTML = ''
+}
+
+function limparHist() {
+    localStorage.clear()
+    location.reload()
+}
 
 
 
