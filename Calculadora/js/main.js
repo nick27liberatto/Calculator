@@ -1,30 +1,30 @@
-//get dom elements
+//GET DOM ELEMENTS
 
-//display
+//DISPLAY
 const show = document.getElementById("show")
-//equal
+//EQUAL
 const equal = document.getElementById("equal")
-//operators
-const sum = document.getElementById("sum")
-const minus = document.getElementById("minus")
-const multi = document.getElementById("multi")
-const div = document.getElementById("div")
 
-//set global mutable variables
+
+
+//SET MUTABLE CONSTANTS (gambiarra)
+
+//STORE THE PART 1, 2 AND RESULTS
 const elements = {
     part1 : 0,
     part2 : 0,
     result : 0
 }
 
+//GET CURRENT OPERATION
 const currentOp = {
     state : ""
 }
 
-//set variables
+//STORE THE VALUES
 const numbers = []
 
-//get click anywhere in dom
+//CATCH CLICK EVENT ANYWHERE IN DOM
 document.addEventListener("click", (evt) => {
     //if click after a calculation it resets the display and set up for new one
     if(evt.target.matches('button') && currentOp.state == "none") {
@@ -47,15 +47,17 @@ document.addEventListener("click", (evt) => {
     }
 })
 
-//store the first values and activate the operations
+//FUNCTION TO DEFINE STATE, DISPLAY SYMBOL AND DEAL WITH FIRST VALUES
 function setUpCalc(opValue) {
-    //store first values
+    
+    //CONCATENATE AND STORE VALUES BEFORE OPERATION
     if (elements.part1 == 0) {
         elements.part1 = numbers.join('')
         numbers.length = 0
          //console.log(elements.part1)
     }
-    //get content
+    
+    //DEFINE STATE AND DISPLAY SYMBOLS
     switch (opValue) {
         case '+':
             //display plus
@@ -107,10 +109,11 @@ function displayHistory() {
 }
 
 
-//show the results and calculate
+//CONCATENATE AND STORE THE SECOND HALF OF THE VALUES, CALL THE FUNCTION TO CALCULATE AND DISPLAY RESULT
 equal.addEventListener("click", async () => {
     await new Promise((resolve) => {
-            //CONCATENATE THE PART TWO OF THE EQUATION AND STORE
+
+            //CONCATENATE AND STORE VALUES AFTER OPERATION
             if (elements.part2 == 0) {
                 elements.part2 = numbers.join('')
                 numbers.length = 0
@@ -155,7 +158,7 @@ equal.addEventListener("click", async () => {
             elements.part2 = 0
             resolve()
         }).then(() => {
-            //RESET THE DISPLAY CONTENT JUST AFTER THE RESULT IS DISPLAYED
+            //RESET THE DISPLAY CONTENT ONLY AFTER THE RESULT IS DISPLAYED
             setTimeout(() => {
               currentOp.state = "none"
             }, 0);
