@@ -17,27 +17,17 @@ const elements = {
     result : 0
 }
 
-//check operation with boolean
-const operators = {
-    adding : false,
-    reducing : false, 
-    multiplying : false, 
-    dividing : false,
-    calculated : false
+const currentOp = {
+    state : ""
 }
-
-//system to clean result from display
-const allButtons = document.querySelectorAll('button')
-const allOperations = Object.values(operators)
 
 //set variables
 const numbers = []
 
-//get values
-
+//get click anywhere in dom
 document.addEventListener("click", (evt) => {
-
-    if(evt.target.matches('button') && elements.calculated == true) {
+    //if click after a calculation it resets the display and set up for new one
+    if(evt.target.matches('button') && currentOp.state == "none") {
         show.innerHTML = ''
         let resetDisplay = evt.target.getAttribute('data-value');
         if (resetDisplay != null) {
@@ -45,8 +35,9 @@ document.addEventListener("click", (evt) => {
             show.innerHTML = resetDisplay
             //console.log(resetDisplay)
         }
-        elements.calculated = false
-    } else {
+        currentOp.state = ""
+    } //get numbers and put in display and array with the values
+    else {
         let buttonValue = evt.target.getAttribute('data-value');
         if (buttonValue != null) {
             show.innerHTML += buttonValue
@@ -54,28 +45,41 @@ document.addEventListener("click", (evt) => {
             //console.log(buttonValue)
         }
     }
-}) 
+})
 
-/*const pushNumber = (value) => {
-    show.innerHTML += value
-    numbers.push(value)
-}*/
-
-//store the first values and activate the sum operation
-sum.addEventListener("click", () => {
-
-    //display plus
-    show.innerHTML += '+'
-
+//store the first values and activate the operations
+function setUpCalc(opValue) {
     //store first values
     if (elements.part1 == 0) {
         elements.part1 = numbers.join('')
-        console.log(elements.part1)
         numbers.length = 0
-        console.log(numbers)
-        operators.adding = true;
+         //console.log(elements.part1)
     }
-})
+    //get content
+    switch (opValue) {
+        case '+':
+            //display plus
+            show.innerHTML += '+'
+            currentOp.state = "sum"
+            console.log("soma")
+            break;
+        case '-':
+            show.innerHTML += '-'
+            currentOp.state = "minus"
+            console.log("menos")
+            break;
+        case '*':
+            show.innerHTML += '*'
+            currentOp.state = "multi"
+            console.log("multi")
+            break;
+        case '/':
+            show.innerHTML += '/'
+            currentOp.state = "div"
+            console.log("div")
+            break;
+    }
+}
 
 function sumValues() {
     elements.result = Number(elements.part1) + Number(elements.part2)
@@ -107,17 +111,32 @@ equal.addEventListener("click", async () => {
             //concatenate and store part2 of the equation
             if (elements.part2 == 0) {
                 elements.part2 = numbers.join('')
-                console.log(elements.part2)
                 numbers.length = 0
-                console.log(numbers)
+                 //console.log(elements.part2)
             }
 
-            //if adding, call sum function, display result and set adding to false
-            if (operators.adding == true) {
-                sumValues()
-                console.log(`${elements.part1} + ${elements.part2} = ${elements.result}`)
-                show.innerHTML = elements.result
-                operators.adding = false
+            switch (currentOp.state) {
+                case "none":
+                     //console.log(currentOp.state)
+                    break;
+                case "sum":
+                    sumValues()
+                    console.log(`${elements.part1} + ${elements.part2} = ${elements.result}`)
+                    show.innerHTML = elements.result
+                    console.log(currentOp.state)
+                    break;
+                case "minus":
+                    console.log(`${elements.part1} - ${elements.part2} = ${elements.result}`)
+                    console.log(currentOp.state)
+                    break;
+                case "multi":
+                    console.log(`${elements.part1} * ${elements.part2} = ${elements.result}`)
+                    console.log(currentOp.state)
+                    break;
+                case "div":
+                    console.log(`${elements.part1} / ${elements.part2} = ${elements.result}`)
+                    console.log(currentOp.state)
+                    break;
             }
 
             storeHistory()
@@ -126,13 +145,10 @@ equal.addEventListener("click", async () => {
             elements.result = 0
             elements.part1 = 0
             elements.part2 = 0
-            console.log(elements.result)
-            console.log(elements.part1)
-            console.log(elements.part2)
             resolve()
         }).then(() => {
             setTimeout(() => {
-              elements.calculated = true
+              currentOp.state = "none"
             }, 0);
           })
     })

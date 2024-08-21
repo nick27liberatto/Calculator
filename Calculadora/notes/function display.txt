@@ -1,44 +1,9 @@
-not working
+REMOVED
 
-function resetDisplay () {
-    operators.dividing = true
-    //verifying if all operations are off
-    let ok = 0
-    for (let i = 0; i < allOperations.length; i++) {
-        if (allOperations[i] == false) {
-            ok++
-        }
-    }
-
-    //if all operation are off, get event listener click off every button in dom
-    if (ok == allOperations.length) {
-        document.addEventListener("click", (evt) => {
-            if(evt.target.matches('button')) {
-                alert("worked")
-            }
-        })
-    }
-}
-
-
-
-function clearCalc () {
-    document.addEventListener("click", (evt) => {
-        if(evt.target.matches('button') && elements.calculated == true) {
-            show.innerHTML = ''
-        }
-    })
-}
-
-
-CHANGE PUSHNUMBERS FUNCTIONS TO THIS:
-
-document.addEventListener('click', function(event) {
-    if (event.target.tagName === 'BUTTON') {
-      const buttonValue = event.target.getAttribute('data-value');
-      console.log(buttonValue);
-    }
-  });
+/*const pushNumber = (value) => {
+    show.innerHTML += value
+    numbers.push(value)
+}*/
 
   pushNumber(value)
 
@@ -69,3 +34,12 @@ document.addEventListener('click', function(event) {
                         <li><button id="equal">=</button></li>
                     </ul> 
                 </div>
+
+sum.addEventListener("click", () => {
+})
+
+
+//system to clean result from display
+const allButtons = document.querySelectorAll('button')
+const allOperations = Object.values(operators)
+

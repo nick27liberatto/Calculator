@@ -19,24 +19,24 @@
                         <li><button data-value="7">7</button></li>
                         <li><button data-value="8">8</button></li>
                         <li><button data-value="9">9</button></li>
-                        <li><button id="sum">+</button></li>
+                        <li><button id="sum" onclick="opValue = '+'; setUpCalc(opValue)">+</button></li>
                     </ul> 
                     <ul class="column2">
                         <li><button data-value="4">4</button></li>
                         <li><button data-value="5">5</button></li>
                         <li><button data-value="6">6</button></li>
-                        <li><button id="minus">-</button></li>
+                        <li><button id="minus" onclick="opValue = '-'; setUpCalc(opValue)">-</button></li>
                     </ul> 
                     <ul class="column3">
                         <li><button data-value="1">1</button></li>
                         <li><button data-value="2">2</button></li>
                         <li><button data-value="3">3</button></li>
-                        <li><button id="multi">*</button></li>
+                        <li><button id="multi" onclick="opValue = '*'; setUpCalc(opValue)">*</button></li>
                     </ul> 
                     <ul class="column4">
                         <li><button data-value="0">0</button></li>
                         <li><button onclick="simbol=',';  ">,</button></li>
-                        <li><button id="div">/</button></li>
+                        <li><button id="div" onclick="opValue = '/'; setUpCalc(opValue)">/</button></li>
                         <li><button id="equal">=</button></li>
                     </ul> 
                 </div>
