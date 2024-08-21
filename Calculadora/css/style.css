@@ -104,7 +104,7 @@ footer{
     transition: 0.3s;
 }
 .container .recursos .history:hover{
-    box-shadow: 0px 0px 15px gray;
+    box-shadow: 0px 0px 15px black;
 }
 
 .container .recursos .history h3{

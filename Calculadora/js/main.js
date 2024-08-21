@@ -81,17 +81,19 @@ function setUpCalc(opValue) {
     }
 }
 
-function sumValues() {
-    elements.result = Number(elements.part1) + Number(elements.part2)
-}
+//EQUATIONS
+function sumValues() {elements.result = Number(elements.part1) + Number(elements.part2)}
+function minusValues() {elements.result = Number(elements.part1) - Number(elements.part2)}
+function multiValues() {elements.result = Number(elements.part1) * Number(elements.part2)}
+function divValues() {elements.result = Number(elements.part1) / Number(elements.part2)}
 
+//HISTORY
 function storeHistory() {
     localStorage.setItem('parte 1', elements.part1)
     localStorage.setItem('parte 2', elements.part2)
     localStorage.setItem('resultado', elements.result)
     displayHistory()
 }
-
 function displayHistory() {
     const parteUm = localStorage.getItem('parte 1')
     const parteDois = localStorage.getItem('parte 2')
@@ -108,51 +110,59 @@ function displayHistory() {
 //show the results and calculate
 equal.addEventListener("click", async () => {
     await new Promise((resolve) => {
-            //concatenate and store part2 of the equation
+            //CONCATENATE THE PART TWO OF THE EQUATION AND STORE
             if (elements.part2 == 0) {
                 elements.part2 = numbers.join('')
                 numbers.length = 0
-                 //console.log(elements.part2)
             }
 
+            //GUIDING TO RIGHT EQUATIONS
             switch (currentOp.state) {
                 case "none":
-                     //console.log(currentOp.state)
+                    console.log(currentOp.state)
                     break;
                 case "sum":
                     sumValues()
                     console.log(`${elements.part1} + ${elements.part2} = ${elements.result}`)
-                    show.innerHTML = elements.result
                     console.log(currentOp.state)
                     break;
                 case "minus":
+                    minusValues()
                     console.log(`${elements.part1} - ${elements.part2} = ${elements.result}`)
                     console.log(currentOp.state)
                     break;
                 case "multi":
+                    multiValues()
                     console.log(`${elements.part1} * ${elements.part2} = ${elements.result}`)
                     console.log(currentOp.state)
                     break;
                 case "div":
+                    divValues()
                     console.log(`${elements.part1} / ${elements.part2} = ${elements.result}`)
                     console.log(currentOp.state)
                     break;
             }
 
+            //DISPLAY RESULT
+            show.innerHTML = elements.result
+
+            //SAVE IN LOCALSTORAGE AND DISPLAY HISTORY
             storeHistory()
 
-            //reset variables
+            //RESET ELEMENTS
             elements.result = 0
             elements.part1 = 0
             elements.part2 = 0
             resolve()
         }).then(() => {
+            //RESET THE DISPLAY CONTENT JUST AFTER THE RESULT IS DISPLAYED
             setTimeout(() => {
               currentOp.state = "none"
             }, 0);
           })
     })
 
+//BUTTON TO CLEAN UP CALCULATOR
 function limparCalc() {
     show.innerHTML = ''
     numbers.length = 0
@@ -161,6 +171,7 @@ function limparCalc() {
     elements.part2 = 0
 }
 
+//BUTTON TO CLEAN UP LOCALSTORAGE AND RELOAD PAGE
 function limparHist() {
     localStorage.clear()
     location.reload()
