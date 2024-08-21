@@ -29,6 +29,11 @@ footer{
     color: white;
     background-color: black;
     border-radius: 15px;
+    transition: 0.3s;
+}
+
+.container .calculator:hover{
+    box-shadow: 0px 0px 15px gray;
 }
 
  .container .calculator h1{
@@ -96,7 +101,12 @@ footer{
     border-radius: 10px;
     justify-content: center;
     align-items: center;
+    transition: 0.3s;
 }
+.container .recursos .history:hover{
+    box-shadow: 0px 0px 15px gray;
+}
+
 .container .recursos .history h3{
     margin-top: 20px;
     font-weight: 500;
@@ -128,6 +138,7 @@ footer{
 #limparCalc{
     font-size: 14px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 #limparCalc{

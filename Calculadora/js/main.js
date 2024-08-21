@@ -34,15 +34,37 @@ const allOperations = Object.values(operators)
 const numbers = []
 
 //get values
-const pushNumber = (value) => {
+
+document.addEventListener("click", (evt) => {
+
+    if(evt.target.matches('button') && elements.calculated == true) {
+        show.innerHTML = ''
+        let resetDisplay = evt.target.getAttribute('data-value');
+        if (resetDisplay != null) {
+            numbers.push(resetDisplay)
+            show.innerHTML = resetDisplay
+            //console.log(resetDisplay)
+        }
+        elements.calculated = false
+    } else {
+        let buttonValue = evt.target.getAttribute('data-value');
+        if (buttonValue != null) {
+            show.innerHTML += buttonValue
+            numbers.push(buttonValue)
+            //console.log(buttonValue)
+        }
+    }
+}) 
+
+/*const pushNumber = (value) => {
     show.innerHTML += value
     numbers.push(value)
-}
+}*/
 
 //store the first values and activate the sum operation
 sum.addEventListener("click", () => {
 
-    //add simbol to display
+    //display plus
     show.innerHTML += '+'
 
     //store first values
@@ -82,7 +104,7 @@ function displayHistory() {
 //show the results and calculate
 equal.addEventListener("click", async () => {
     await new Promise((resolve) => {
-            //store part2 of the equation
+            //concatenate and store part2 of the equation
             if (elements.part2 == 0) {
                 elements.part2 = numbers.join('')
                 console.log(elements.part2)
@@ -115,15 +137,12 @@ equal.addEventListener("click", async () => {
           })
     })
 
-document.addEventListener("click", (evt) => {
-    if(evt.target.matches('button') && elements.calculated == true) {
-        elements.calculated = false
-    }
-}) 
-
-
 function limparCalc() {
     show.innerHTML = ''
+    numbers.length = 0
+    elements.result = 0
+    elements.part1 = 0
+    elements.part2 = 0
 }
 
 function limparHist() {
