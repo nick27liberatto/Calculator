@@ -13,7 +13,8 @@ const equal = document.getElementById("equal")
 const elements = {
     part1 : 0,
     part2 : 0,
-    result : 0
+    result : 0,
+    store : 0
 }
 
 //GET CURRENT OPERATION
@@ -61,51 +62,66 @@ function setUpCalc(opValue) {
     switch (opValue) {
         case '+':
             //display plus
-            show.innerHTML += '+'
-            currentOp.state = "sum"
-            console.log("soma")
+            currentOp.state = "+"
+            show.innerHTML += currentOp.state
+            console.log(currentOp.state)
             break;
         case '-':
-            show.innerHTML += '-'
-            currentOp.state = "minus"
-            console.log("menos")
+            currentOp.state = "-"
+            show.innerHTML += currentOp.state
+            console.log(currentOp.state)
             break;
         case '*':
-            show.innerHTML += '*'
-            currentOp.state = "multi"
-            console.log("multi")
+            currentOp.state = "*"
+            show.innerHTML += currentOp.state
+            console.log(currentOp.state)
             break;
         case '/':
-            show.innerHTML += '/'
-            currentOp.state = "div"
-            console.log("div")
+            currentOp.state = "/"
+            show.innerHTML += currentOp.state
+            console.log(currentOp.state)
             break;
     }
 }
 
 //EQUATIONS
-function sumValues() {elements.result = Number(elements.part1) + Number(elements.part2)}
-function minusValues() {elements.result = Number(elements.part1) - Number(elements.part2)}
-function multiValues() {elements.result = Number(elements.part1) * Number(elements.part2)}
-function divValues() {elements.result = Number(elements.part1) / Number(elements.part2)}
+function sumValues() {if (elements.store != 0) {elements.result = Number(elements.store) + Number(elements.part2)} 
+else {elements.result = Number(elements.part1) + Number(elements.part2)}}
+
+function minusValues() {if (elements.store != 0) {elements.result = Number(elements.store) - Number(elements.part2)} 
+else {elements.result = Number(elements.part1) - Number(elements.part2)}}
+
+function multiValues() {if (elements.store != 0) {elements.result = Number(elements.store) * Number(elements.part2)} 
+else {elements.result = Number(elements.part1) * Number(elements.part2)}}
+
+function divValues() {if (elements.store != 0) {elements.result = Number(elements.store) / Number(elements.part2)} 
+else {elements.result = Number(elements.part1) / Number(elements.part2)}}
 
 //HISTORY
 function storeHistory() {
     localStorage.setItem('parte 1', elements.part1)
     localStorage.setItem('parte 2', elements.part2)
     localStorage.setItem('resultado', elements.result)
+    localStorage.setItem('store', elements.store)
     displayHistory()
 }
 function displayHistory() {
     const parteUm = localStorage.getItem('parte 1')
     const parteDois = localStorage.getItem('parte 2')
     const resultado = localStorage.getItem('resultado')
+    const store = localStorage.getItem('store')
     
     let historyUl = document.getElementById("historyUl")
     let history = document.createElement('li')
 
     historyUl.appendChild(history)  
-    history.innerHTML = `${parteUm} + ${parteDois} = ${resultado}`
+    if (elements.store != 0) {
+        console.log("store:" + store)
+        history.innerHTML = `${store} ${currentOp.state} ${parteDois} = ${resultado}`
+    } else {
+        console.log("parte um:" + parteUm)
+        history.innerHTML = `${parteUm} ${currentOp.state} ${parteDois} = ${resultado}`
+    }
 }
 
 
@@ -124,22 +140,22 @@ equal.addEventListener("click", async () => {
                 case "none":
                     console.log(currentOp.state)
                     break;
-                case "sum":
+                case "+":
                     sumValues()
                     console.log(`${elements.part1} + ${elements.part2} = ${elements.result}`)
                     console.log(currentOp.state)
                     break;
-                case "minus":
+                case "-":
                     minusValues()
                     console.log(`${elements.part1} - ${elements.part2} = ${elements.result}`)
                     console.log(currentOp.state)
                     break;
-                case "multi":
+                case "*":
                     multiValues()
                     console.log(`${elements.part1} * ${elements.part2} = ${elements.result}`)
                     console.log(currentOp.state)
                     break;
-                case "div":
+                case "/":
                     divValues()
                     console.log(`${elements.part1} / ${elements.part2} = ${elements.result}`)
                     console.log(currentOp.state)
@@ -151,6 +167,9 @@ equal.addEventListener("click", async () => {
 
             //SAVE IN LOCALSTORAGE AND DISPLAY HISTORY
             storeHistory()
+
+            //STORE THE LATEST RESULT TO NEXT EQUATION
+            elements.store = elements.result
 
             //RESET ELEMENTS
             elements.result = 0
@@ -169,6 +188,7 @@ equal.addEventListener("click", async () => {
 function limparCalc() {
     show.innerHTML = ''
     numbers.length = 0
+    elements.store = 0
     elements.result = 0
     elements.part1 = 0
     elements.part2 = 0

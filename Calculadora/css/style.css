@@ -87,6 +87,11 @@ footer{
     color: black;
 }
 
+.container .calculator .numbers ul > li > button:active{
+    background-color: grey;
+    color: black;
+}
+
 .container .recursos{
     margin-top: 40px;
     justify-content: space-between;
